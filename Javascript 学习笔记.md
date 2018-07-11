@@ -177,7 +177,8 @@ Number(undefined) // NaN
 5 + undefined // NaN
 ```
 
-##1, undefined
+## 1, undefined
+
 ```
 // 变量声明了，但没有赋值
 var i;
@@ -197,7 +198,8 @@ o.p // undefined
 function f() {}
 f() // undefined
 ```
-##2, null
+## 2, null
+
 >null表示空值，即该处的值现在为空。调用函数时，某个参数>>未设置任何值，这时就可以传入null，表示该参数为空。比如>>，某个函数接受引擎抛出的错误作为参数，如果运行过程中未>>出错，那么这个参数就会传入null，表示未发生错误。
 ## 3,boolean布尔值
 下列运算符返回Boolean值
@@ -226,8 +228,10 @@ if ({}) {
 }
 // true
 ```
-## number
-### 整数和浮点数
+## 4.number
+
+ ###  整数和浮点数
+
 >JavaScript 语言的底层根本没有整数，所有数字都是小数（64位浮点数）。容易造成混淆的是，某些运算只有整数才能完成，此时 JavaScript 会自动把64位浮点数，转成32位整数，然后再进行运算
 ```
 1===1.0 //true
@@ -244,6 +248,7 @@ if ({}) {
 // false
 ```
 ### 正零和负零
+
 ``` -0 === +0 // true
 0 === -0 // true
 0 === +0 // true ```
@@ -264,9 +269,8 @@ NaN === NaN // false
 Boolean(NaN) // false
 
 typeof NaN // 'number'
-```
 ### Infinity(无穷)
-```
+
 // 场景一
 Math.pow(2, 1024)
 // Infinity
@@ -343,6 +347,7 @@ string';
 longString
 // "Long long long string"
 ```    
+
 ```
 var longString = 'Long '
   + 'long '
@@ -360,7 +365,7 @@ line 3
 // "line 1
 // line 2
 // line 3"
-```
+  ```
 
 反斜杠（\）在字符串内有特殊含义，用来表示一些特殊字符，所以又称为转义符
 >**\0 ：null（\u0000）
@@ -408,7 +413,7 @@ JavaScript 的标准此时已经定型了，统一将字符长度限制在两字
 '𝌆'.length //2
 ```
 
-### Base64 转码
+### 5.Base64 转码
 所谓 Base64 就是一种编码方法，可以将任意值转成 0～9、A～Z、a-z、+和/这64个字符组成的可打印字符。使用它的主要目的，不是为了加密，而是为了不出现特殊字符，简化程序的处理。
 >btoa()：任意值转为 Base64 编码
 atob()：Base64 编码转为原来的值
@@ -455,7 +460,7 @@ obj + 2 // "[object Object]2"
 
 
 对象相加，会把对象转换为原始类型的值，再相加；
-``` var obj = { p: 1 };
+​``` var obj = { p: 1 };
 obj.valueOf().toString() // "[object Object]" ```
 知道了这个规则以后，就可以自己定义valueOf方法或toString方法，得到想要的结果。
 ```
@@ -720,3 +725,5 @@ saveText(this.text || '')
 
 
 
+
+```
