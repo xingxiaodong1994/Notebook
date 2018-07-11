@@ -460,219 +460,309 @@ obj + 2 // "[object Object]2"
 
 
 对象相加，会把对象转换为原始类型的值，再相加；
-​``` var obj = { p: 1 };
-obj.valueOf().toString() // "[object Object]" ```
+ var obj = { p: 1 };
+obj.valueOf().toString() // "[object Object]" 
 知道了这个规则以后，就可以自己定义valueOf方法或toString方法，得到想要的结果。
 ```
-var obj = {
-  valueOf: function () {
+```
+ valueOf: function () {
+
     return 1;
+
   }
+
 };
 
 obj + 2 // 3
 
 var obj = {
+
   toString: function () {
+
     return 'hello';
+
   }
+
 };
 
 obj + 2 // "hello2"
+
 ```
 
 这里有一个特例，如果运算子是一个Date对象的实例，那么会优先执行toString方法。
+
 ```
 var obj = new Date();
+
 obj.valueOf = function () { return 1 };
+
 obj.toString = function () { return 'hello' };
 
 obj + 2 // "hello2"
+
 ```
+
 上面代码中，对象obj是一个Date对象的实例，并且自定义了valueOf方法和toString方法，结果toString方法优先执行。
 
 十种运算符
 >加法运算符：x + y
-减法运算符： x - y
-乘法运算符： x * y
-除法运算符：x / y
-指数运算符：x ** y
-余数运算符：x % y
-自增运算符：++x 或者 x++
-自减运算符：--x 或者 x--
-数值运算符： +x
-负数值运算符：-x
+>减法运算符： x - y
+>乘法运算符： x * y
+>除法运算符：x / y
+>指数运算符：x ** y
+>余数运算符：x % y
+>自增运算符：++x 或者 x++
+>自减运算符：--x 或者 x--
+>数值运算符： +x
+>负数值运算符：-x
 
 ### 注意负数取余由第一个数的正负决定
+```
 -1 % 2 // -1
+
 1 % -2 // 1
+
+```
+
+
 所以需要用到绝对值函数Math.abs（）
+
 ```
 // 错误的写法
+
 function isOdd(n) {
+
   return n % 2 === 1;
+
 }
+
 isOdd(-5) // false
+
 isOdd(-4) // false
 
 // 正确的写法
+
 function isOdd(n) {
+
   return Math.abs(n % 2) === 1;
+
 }
+
 isOdd(-5) // true
+
 isOdd(-4) // false
+
 ```
+
 ### 注意自增自减运算
 自增和自减运算符有一个需要注意的地方，就是放在变量之后，会先返回变量操作前的值，再进行自增/自减操作；放在变量之前，会先进行自增/自减操作，再返回变量操作后的值。
+
 ```
 var x = 1;
+
 var y = 1;
 
 x++ // 1
+
 ++y // 2
+
 ```
 
 ## 比较运算符
-```
-< 小于运算符
-> 大于运算符
-<= 小于或等于运算符
->= 大于或等于运算符
-== 相等运算符
-=== 严格相等运算符
-!= 不相等运算符
-!== 严格不相等运算符
-```
+
+> < 小于运算符
+>
+> (>)大于运算符
+>
+> <= 小于或等于运算符
+> = 大于或等于运算符
+> == 相等运算符
+> === 严格相等运算符
+> != 不相等运算符
+> !== 严格不相等运算符
 
 ### 字符串的比较
 JavaScript 引擎内部首先比较首字符的 Unicode 码点。如果相等，再比较第二个字符的 Unicode 码点，以此类推。
+
+```
+
 'cat' > 'dog' // false
 'cat' > 'catalog' // false
 
+```
 ### 非字符串的比较
 两个原始类型的值的比较，除了相等运算符（==）和严格相等运算符（===），其他比较运算符都是先转成数值再比较。
 
 原始类型比较
+
 ```
 5 > '4' // true
+
 // 等同于 5 > Number('4')
+
 // 即 5 > 4
 
 true > false // true
+
 // 等同于 Number(true) > Number(false)
+
 // 即 1 > 0
 
 2 > true // true
+
 // 等同于 2 > Number(true)
+
 // 即 2 > 1
+
 ```
 
 对象比较
 ```
 var x = [2];
+
 x > '11' // true
+
 // 等同于 [2].valueOf().toString() > '11'
+
 // 即 '2' > '11'
 
 x.valueOf = function () { return '1' };
+
 x > '11' // false
+
 // 等同于 [2].valueOf() > '11'
+
 // 即 '1' > '11'
 ```
-
 严格相等‘===’
+```
 >NaN === NaN  // false
 +0 === -0 // true
 
-两个复合类型（对象、数组、函数）的数据比较时，不是比较它们的值是否相等，而是比较它们是否指向同一个地址。
 >{} === {} // false
 [] === [] // false
 (function () {} === function () {}) // false
 
 >undefined === undefined // true
 null === null // true
-由于变量声明后默认值是undefined，因此两个只声明未赋值的变量是相等的。
+//由于变量声明后默认值是undefined，因此两个只声明未赋值的变量是相等的。
 var v1;
 var v2;
 v1 === v2 // true
-
-### 相等运算符
 ```
-1 == true // true
+### 相等运算符
+
+```1 == true // true
 // 等同于 1 === Number(true)
 
 0 == false // true
+
 // 等同于 0 === Number(false)
 
 2 == true // false
+
 // 等同于 2 === Number(true)
 
 2 == false // false
+
 // 等同于 2 === Number(false)
 
 'true' == true // false
+
 // 等同于 Number('true') === Number(true)
+
 // 等同于 NaN === 1
 
 '' == 0 // true
+
 // 等同于 Number('') === 0
+
 // 等同于 0 === 0
 
 '' == false  // true
+
 // 等同于 Number('') === Number(false)
+
 // 等同于 0 === 0
 
 '1' == true  // true
+
 // 等同于 Number('1') === Number(true)
+
 // 等同于 1 === 1
 
 '\n  123  \t' == 123 // true
+
 // 因为字符串转为数字时，省略前置和后置的空格
+
 ```
+
 原始类型的数据会转换成数值类型再进行比较。
 ```
 [1] == 1 // true
+
 // 等同于 Number([1]) == 1
 
 [1] == '1' // true
+
 // 等同于 Number([1]) == Number('1')
 
 [1] == true // true
+
 // 等同于 Number([1]) == Number(true)
+
 ```
 数组[1]与数值进行比较，会先转成数值，再进行比较；与字符串进行比较，会先转成数值，然后再与字符串进行比较，这时字符串也会转成数值；与布尔值进行比较，两个运算子都会先转成数值，然后再进行比较。
 
 特殊情况
+
 ```
 0 == ''             // true
+
 0 == '0'            // true
 
 2 == true           // false
+
 2 == false          // false
 
 false == 'false'    // false
+
 false == '0'        // true
 
 false == undefined  // false
+
 false == null       // false
+
 null == undefined   // true
 
 ' \t\r\n ' == 0     // true
-```
 
+```
 ## 布尔运算符
+
 ```
 !undefined // true
+
 !null // true
+
 !0 // true
+
 !NaN // true
+
 !"" // true
+
 !false // true
+
 //以上取反为true，其他为false。
+
 !54 // false
+
 !'hello' // false
+
 ![] // false
+
 !{} // false
+
 ```
 两次取反等同于Boolean()函数
 !!x
@@ -684,23 +774,28 @@ Boolean(x)
 
 ```
 function saveText(text) {
+
   text = text || '';
+
   // ...
+
 }
 
 // 或者写成
+
 saveText(this.text || '')
 ```
-
 三元条件运算符（?:）
 ```
 't' ? 'hello' : 'world' // "hello"
+
 0 ? 'hello' : 'world' // "world"
+
 ```
 如果第一个表达式的布尔值为true，则返回第二个表达式的值，否则返回第三个表达式的值。
 
 位运算符(7个)
-```
+
 二进制或运算符（or）：符号为|，表示若两个二进制位都为0，则结果为0，否则为1。
 二进制与运算符（and）：符号为&，表示若两个二进制位都为1，则结果为1，否则为0。
 二进制否运算符（not）：符号为~，表示对一个二进制位取反。
