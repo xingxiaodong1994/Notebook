@@ -249,19 +249,26 @@ if ({}) {
 ```
 ### 正零和负零
 
-``` -0 === +0 // true
+```
 0 === -0 // true
-0 === +0 // true ```
+
+0 === +0 // true 
+```
 
 > JavaScript 内部实际上存在2个0：一个是+0，一个是-0，区别就是64位浮点数表示法的符号位不同。它们是等价的。
 
 ### NAN
 >NaN是 JavaScript 的特殊值，表示“非数字”（Not a Number）
+
 ```
 5 - 'x' // NaN
+
 0/0 //NAN
+
 Math.acos(2) // NaN
+
 Math.log(-1) // NaN
+
 Math.sqrt(-1) // NaN
 
 NaN === NaN // false
@@ -269,66 +276,102 @@ NaN === NaN // false
 Boolean(NaN) // false
 
 typeof NaN // 'number'
+
+```
+
 ### Infinity(无穷)
 
+```
 // 场景一
+
 Math.pow(2, 1024)
+
 // Infinity
 
 // 场景二
+
 0 / 0 // NaN
+
 1 / 0 // Infinity
+
 ```
 ### parseInt()
 parseInt方法用于将字符串转为整数。
 >1.如果字符串头部有空格，空格会被自动去除。
-2.如果parseInt的参数不是字符串，则会先转为字符串再转换
-3.字符串转为整数的时候，是一个个字符依次转换，如果遇到不 能转为数字的字符，就不再进行下去，返回已经转好的部分。
-4.如果字符串的第一个字符不能转化为数字（后面跟着数字的正负号除外），返回NaN。
+>2.如果parseInt的参数不是字符串，则会先转为字符串再转换
+>3.字符串转为整数的时候，是一个个字符依次转换，如果遇到不 能转为数字的字符，就不再进行下去，返回已经转好的部分。
+>4.如果字符串的第一个字符不能转化为数字（后面跟着数字的正负号除外），返回NaN。
+
 ```
 parseInt('123') // 123
 
 parseInt('   81') // 81
 
 parseInt(1.23) // 1
+
 // 等同于
+
 parseInt('1.23') // 1
 
 parseInt('8a') // 8
+
 parseInt('12**') // 12
+
 parseInt('12.34') // 12
+
 parseInt('15e2') // 15
+
 parseInt('15px') // 15
 
 parseInt('abc') // NaN
+
 parseInt('.3') // NaN
+
 parseInt('') // NaN
+
 parseInt('+') // NaN
+
 parseInt('+1') // 1
 
 parseInt('1000', 2) // 8
+
 parseInt('1000', 6) // 216
+
 parseInt('1000', 8) // 512
+
 ```
 如果parseInt 有第二个参数，视为2-36进制转换
 ```
 parseInt('10', 37) // NaN
+
 parseInt('10', 1) // NaN
+
 parseInt('10', 0) // 10
+
 parseInt('10', null) // 10
+
 parseInt('10', undefined) // 10
+
 ```
 ### parseFloat()
 parseFloat方法用于将一个字符串转为浮点数。
+
 ```
 parseFloat('\t\v\r12.2')
+
 //12.2
+
 parseFloat('\t\v\12.2')
+
 //0.2
+
 parseFloat('\t\s\12.2')
+
 //NaN
+
 ```
 这是为什么？
+
 ### isNAN()
 isNaN方法可以用来判断一个值是否为NaN。
 ### isFinite()
@@ -337,16 +380,20 @@ isFinite方法返回一个布尔值，表示某个值是否为正常的数值。
 ## string
 ### 字符串就是零个或多个排在一起的字符，放在单引号或双引号之中。
 >* 如果要在单引号字符串的内部，使用单引号，就必须在内部的单引号前面加上反斜杠，用来转义。双引号字符串内部使用双引号，也是如此。
-    如果长字符串必须分成多行，可以在每一行的尾部使用反斜杠。
-```
+>   如果长字符串必须分成多行，可以在每一行的尾部使用反斜杠。
+
+```    
 var longString = 'Long \
+
 long \
+
 long \
+
 string';
 
 longString
+
 // "Long long long string"
-```    
 
 ```
 var longString = 'Long '
