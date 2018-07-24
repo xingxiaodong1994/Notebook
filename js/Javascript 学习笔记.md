@@ -404,7 +404,8 @@ var longString = 'Long '
   
  如果想输出多行字符串，有一种利用多行注释的变通方法。
   
- ``` (function () { /*
+ `
+ (function () { /*
 line 1
 line 2
 line 3
@@ -412,7 +413,7 @@ line 3
 // "line 1
 // line 2
 // line 3"
-  ```
+`
 
 反斜杠（\）在字符串内有特殊含义，用来表示一些特殊字符，所以又称为转义符
 >**\0 ：null（\u0000）
@@ -427,7 +428,7 @@ line 3
 \\ ：反斜杠（\u005C）**
 
 特殊用法：用来表示字符
-```
+  ```
 '\251' // "©"
 '\xA9' // "©"
 '\u00A9' // "©"
@@ -495,7 +496,7 @@ false + 'a' // "falsea"
 3 + 4 + '5' // "75"
 ```
 除了加法运算符，其他算术运算符（比如减法、除法和乘法）都不会发生重载。它们的规则是：所有运算子一律转为数值，再进行相应的数学运算。
-```1 - '2' // -1
+​```1 - '2' // -1
 1 * '2' // 2
 1 / '2' // 0.5
 ```
@@ -1066,4 +1067,246 @@ var c={name:'lee',age:18}
 所以:
 
 ### `Object.prototype.__proto__===null`
+# 函数
+- **函数声明**
+ 1. 匿名函数
+     `function (){}`
 
+ 2. 具名函数
+     `function f(){}`
+
+ 3. 具名函数赋值
+
+     ```
+     var f1=function f2(){}
+     
+      f1.name// f2`
+     
+     ```
+
+     
+
+     
+
+ 4. window.Function
+
+     ```
+     var f=new Function('x','y','return x+y')
+     
+      f.name//anonymous匿名
+     
+     ```
+
+     
+
+     
+
+ 5. 箭头函数
+     `(x,y)=>{x+y}`
+ - **调用函数**
+ f.call(asThis,input1,input2)
+ - **函数作用域**
+1. 变量提升
+2. ```
+    var liTags = document.querySelectorAll('li') 
+    
+    for(var i=0;i<liTags.length;i++){
+    
+     liTags[i].onclick = function(){
+            console.log(i) // 点击第3个 li 时，打印 2 还是打印 6？
+    }
+    }
+    
+      //声明和执行函数时，变量都是i，但是i的值可能变了！
+    
+    ```
+
+- **闭包**
+
+  函数和函数能访问变量的总和组成一个闭包。
+
+- **函数API**
+
+  1. ```f.call(undefined,1,2)```其中第一个参数undefined是this的值，后面的参数（1,2）是arguments参数列表。
+
+     
+
+# 数组array
+
+-  **数组的声明**
+
+```
+var a=new Array(3) //声明一个length为3的数组。
+var a=new Array([3])//声明一个length为1,a[0]==3的数组。
+var a=new Array(3,3)//声明一个length为2,a[0]==3,a[1]==3的数组。
+
+```
+
+数组在声明的同时，它还自带一个属性`__Proto__`.
+
+```
+a.__proto__===Array.prototype
+```
+
+注意：伪数组的原型链中不包括`Array.prototype`
+
+决定一个对象是不是数组的唯一依据，它的原型链包含`Array.prototype`
+
+```
+a=[1,2,3];
+a.xxx='xxx';
+a // [1, 2, 3, xxx: "xxx"]
+Array.isArray(a) //true //数组中可以有非数组项！！！
+```
+
+
+
+- **数组的遍历**
+
+  1. ```
+     for(var i=0;i<arr.length;i++){}
+     ```
+
+  2. ```
+     for(var key in arr){}  //把数组看做对象来遍历。
+     ```
+
+- **数组的API**
+
+   - arr.push()
+
+   - arr.pop()
+
+   - arr.shift()
+
+   - arr. concat (brr)
+
+     
+
+- 数组的判断：`Array.isArray(arr) //true`判断此arr变量是否为数组，返回boolean值。
+
+   ```
+   var arr=[1,2,3];
+   arr.toString() //"1,2,3"
+   arr.valueOf() //[1,2,3]
+   ------
+   arr.push('a') //返回数组长度：4  //[1,2,3,'a']在原数组末尾添加元素，并返回数组的长度。
+   arr.pop() //返回删除元素：'a'    //[1,2,3]删除数组最后一个元素，并返回删除的元素。
+   ------
+   arr.unshift('b') //返回数组长度：4 //['b',1,2,3]在数组的第一个位置添加元素，并返回数组长度
+   arr.shift()    //返回删除元素：'b'  //[1,2,3]删除数组的第一个元素，并返回删除的元素。
+   ------
+   arr.join() //'1,2,3' 把数组以指定参数分割后，再连接在一起以字符串返回，默认以','分割。
+   arr.join()可以用于深拷贝！！！
+   arr.join('-') //1-2-3
+   ------
+   arr.concat([4,5,6]) // [1,2,3,4,5,6] //将多个数组合并返回新数组，原数组不变。//浅拷贝
+   ------
+   arr.reverse()//[3,2,1] //颠倒数组，返回改变后数组。 //此方法会改变原数组。
+   ------
+   arr.slice(0,2)//[3,2] //截取数组从a[0]到a[2],但不包含a[2].原数组不改变。
+   arr// [3,2,1]
+   ------
+   arr// [3,2,1]
+   arr.map((n)=>{n+1}) //[4,3,2] //map方法将数组的所有成员依次传入参数函数，然后把每一次的执行结果组成一个新数组返回。注意此方法不改变原数组。
+   arr//[3,2,1]
+   ------
+   arr.forEach()//forEach方法与map方法很相似，也是对数组的所有成员依次执行参数函数。但是，forEach方法不返回值，只用来操作数据。这就是说，如果数组遍历的目的是为了得到返回值，那么使用map方法，否则使用forEach方法。
+   forEach()必须接受一个函数作为参数，否则报错。而且forEach()本身会提供给函数三个参数（elem, index, arr）当前成员，当前位置和数组本身，供函数来操作数组。
+   
+   
+   ```
+
+   # DOM(Document Object Model)
+
+- 它的作用是将网页转为一个 JavaScript 对象，从而可以用脚本进行各种操作（比如增删内容）。 
+
+## 节点的七种类型
+
+1. **Document**:整个文档树最顶层的节点。
+2. **DocumentType**: 文档类型doctype标签（比如`<!DOCTYPE html>`）
+3. **Element**:网页各种html标签。
+4. **Attribute**:网页元素的各种属性
+5. **Text**:标签之间的文本。
+6. **Comment**:注释
+7. **DocumentFragment**:文档片段
+
+## DOM树结构
+
+1. #document （**Document**节点，文档树最顶层节点，浏览器原生节点对象）
+2. `<!DOCTYPE html>`(**DocumentType节点**: 声明文档类型)
+3. `<html></html>`(**Element节点**：文档第一层节点又称（**root node**根节点）)
+4. 其他节点：Elememt节点、Text节点、Comment节点、Attribute节点。
+   1. 其他节点都有三种层级关系。
+      - 父节点关系（parentNode）：直接的那个上级节点
+      - 子节点关系（childNodes,firstChild,lastChild）：直接的下级节点
+      - 同级节点关系（nextSibling,previousSibling）：拥有同一个父节点的节点
+
+## Node接口
+
+- `Node.nodetype`通过此属性可以判断节点的类型，它会返回一个与该节点类型对应的`无符号短整型`的值，可能的值如下： 
+
+  | 节点类型                     | 返回值                   | 对于数字 |
+  | ---------------------------- | ------------------------ | -------- |
+  | 元素节点Element              | `ELEMENT_NODE`           | 1        |
+  | 文本节点Text                 | `TEXT_NODE`              | 3        |
+  | 注释节点Comment              | ` COMMENT_NODE `         | 8        |
+  | 文档节点Document             | `DOCUMENT_NODE`          | 9        |
+  | 文档类型节点`DocumentType`   | `DOCUMENT_TYPE_NODE`     | 10       |
+  | 文档片段节点DocumentFragment | `DOCUMENT_FRAGMENT_NODE` | 11       |
+
+  - **Node.textContent**与**Node.innerText**区别
+
+    - `textContent` 会获取所有元素的内容，包括`<script>`和`<style>`元素，然而 `innerText` 不会。
+
+    - `innerText` 受 CSS 样式的影响，并且不会返回隐藏元素的文本，而textContent会。
+
+    - 由于 `innerText` 受 CSS 样式的影响，它会触发重排（reflow），但`textContent` 不会。
+
+    - `与 textContent 不同的是`, 在 Internet Explorer (对于小于等于 IE11 的版本) 中对 innerText 进行修改， 不仅会移除当前元素的子节点，而且还会永久性地破坏所有后代文本节点（所以不可能再次将节点再次插入到任何其他元素或同一元素中）。
+
+  - **Node.textContent**与**Node.innerText**区别
+
+    - `正如`其名称`，innerHTML` `返回` `HTML` `文本。`通常，为了在元素中检索或写入文本，人们使用innerHTML。但是，textContent通常具有更好的性能，因为文本不会被解析为HTML。此外，使用textContent可以防止  XSS 攻击。 
+
+- `Node.isEqualNode()`与`Node.isSameNode()`区别
+
+  - `Node.isEqualNode()`
+
+    返回一个`Boolean`指示两个节点是否属于同一类型且拥有相同的内容。
+
+  - `Node.isSameNode()`
+
+    返回一个`Boolean`值，指示两个节点是否是同一个对象（即，它们引用同一对象）。
+
+    此方法已经**废弃**，用`node1===node2`或者`node1==node2`代替
+
+- `cloneNode()`
+
+  - `cloneNode()`或者`cloneNode(false)`表示只克隆节点本身。
+  - `cloneNode(true)`表示深度克隆，该节点的所有后代节点也都会被克隆 。
+
+- `Node.normalize()`
+
+  `Node.normalize() `方法将当前节点和它的后代节点”规范化“（normalized）。在一个"规范化"后的DOM树中，不存在一个空的文本节点，或者两个相邻的文本节点。
+
+  - 注1：“空的文本节点”并不包括空白字符(空格，换行等)构成的文本节点。
+
+  - 注2：两个以上相邻文本节点的产生原因包括：
+
+    - 通过脚本调用有关的DOM接口进行了文本节点的插入和分割等。
+    - HTML中超长的文本节点会被浏览器自动分割为多个相邻文本节点。
+
+## Document接口
+
+以前常用：
+
+- `getElementById()`
+- `getElementsByClassName()`
+- `getElementsByName()`
+- `getElementsByTagName()`
+
+现在常用：
+
+- `querySelector()`
+- `querySelectorAll()`
