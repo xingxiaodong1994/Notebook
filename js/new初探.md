@@ -25,3 +25,4 @@ Fn.prototype={					//3.创建Fn.prototype对象，其中Fn.prototype.constructor
 
 ```
 
+http://js.jirengu.com/qerum/2/edit
