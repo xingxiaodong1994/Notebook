@@ -25,4 +25,21 @@ Fn.prototype={					//3.创建Fn.prototype对象，其中Fn.prototype.constructor
 
 ```
 
-http://js.jirengu.com/qerum/2/edit
+3.在 ES5 中如何用函数模拟一个类？ 
+
+```
+var Class=function Class(e){
+    //添加类的属性
+    this.name=e.name
+    //添加类的方法
+    this.method1=function(){}
+}
+//定义类的原型的属性和方法
+Class.prototype={
+     constructor:Class
+}
+//创建类的实例
+options={name:'class1'}
+class1=new Class(options)
+```
+

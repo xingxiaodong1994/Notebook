@@ -33,9 +33,9 @@
      xhr.onreadystatechange=function(){
          if(readyState===4){
              console.log('请求响应完毕')
-             if(xhr.state>=200 && xhr.state<300){
+             if(xhr.status>=200 && xhr.status<300){
                  console.log(响应成功)
-                 console.log(xhr.state)
+                 console.log(xhr.status)
                  console.log(xhr.responsText) 
                  //把符合JSON语法的字符串转换为JS对象
                  let string=xhr.responsText
