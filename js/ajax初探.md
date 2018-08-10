@@ -31,7 +31,7 @@
      let xhr = new XMLHttpRequest()
      xhr.open('get','/xxx')
      xhr.onreadystatechange=function(){
-         if(readyState===4){
+         if(xhr.readyState===4){
              console.log('请求响应完毕')
              if(xhr.status>=200 && xhr.status<300){
                  console.log(响应成功)
