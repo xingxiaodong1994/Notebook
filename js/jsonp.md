@@ -67,7 +67,8 @@ if(path === '/pay'){ //当请求路径为pay时
         //设置状态码
         response.statusCode = 200
         //执行回调函数，并把请求的数据以JSON的格式，作为回调函数参数，返回给请求方（前端程序员A）
-        //JSON+padding=JSONP   
+        //JSON+padding=JSONP 
+        //设置响应体
         response.write(`
              ${query.callback}.call(undefined,{
                  "success":true,
@@ -75,6 +76,18 @@ if(path === '/pay'){ //当请求路径为pay时
              })
         `)        
         response.end()
+```
+
+小技巧：
+
+```
+//随机数：
+	//Math.random()//0-1之间随机数
+	var number=Math.random()*10000
+	//取整数部分
+	number = parseInt(number,10) 
+//手动刷新
+    window.location.reload()
 ```
 
 
