@@ -14,6 +14,8 @@
   arr.slice(begin, end);
   // [begin, end]
   //注意，slice方法包括开始不包括结束。
+  //!!Es6新API（ 类数组转化为数组对象）
+  array = Array.from(arrayLike)
   
   ```
 
@@ -43,6 +45,51 @@
   var list1 = list(1, 2, 3); // [1, 2, 3]
   //除了使用 Array.prototype.slice.call(arguments)，你也可以简单的使用 [].slice.call(arguments) //来代替。
   
+  ```
+
+- `join()` 方法将一个数组（或一个类数组对象）的所有元素连接成一个字符串并返回这个字符串。 
+
+  ```
+    var arr = [1,2,3]
+      Array.prototype.join.call(arr,'-') //"1-2-3"
+      arr.join.call(arr,'-')//"1-2-3"
+    //join方法不会改变数组！
+    //手写join方法:
+    Array.prototype.join=function(string){
+              let result=this[0]||''
+              //console.log(this)
+              //console.log(string)    
+              for(let i=1;i<this.length;i++){
+              //console.log(this[i])
+              result=result+string+this[i]
+              //console.log(result)
+              }
+              return result
+          }
+          var arr = [1,2,3]
+          console.log(arr.join.call(arr,'-'))
+  ```
+
+  
+
+- ` slice() `方法返回一个从开始到结束（不包括结束）选择的数组的一部分浅拷贝到一个新数组对象。且原始数组不会被修改。 
+
+  ```
+  var arr = [1,2,3,4,5]
+  var brr=Array.prototype.slice.call(arr,1,3)
+  console.log(arr) //[1,2,3,4,5]
+  console.log(brr)  //[2,3] 
+   //slice方法不会改变数组！
+   //手写join方法:
+    Array.prototype.slice=function(begin,end){
+          let result=[]
+          begin = begin || 0
+          end = end || this.length
+          for(let i=begin;i<end;i++){
+             result.push(this[i])
+          }
+          return result
+    }
   ```
 
   
