@@ -44,3 +44,32 @@ pc端默认font-size大小为16px;对于浏览器Chrome来说最小字号为12px
 ```
 
 这样我们可以rem作为长度单位进行手机百分比布局，自动适应不同宽度的手机屏幕。
+
+4 . 
+
+```
+//背景图片居中 整体模糊filter:blur(5px)
+.cover{
+	
+	position:relative;
+}
+.cover::before{
+    content:'';
+    display:absolute;
+    top:0;
+    left:0;
+    width:100%
+    height:100%
+    filter:blur(5px)
+    background:transparent url:"" center center noreap ;
+    background-size:cover;
+    z-index:-1;
+}
+```
+css预加载：Chrome等待css加载完毕再渲染页面！
+性能优化
+1. 减少DNS查询数量：把所以资源放在一个域名
+2. tcp协议，开启连接复用，在http协议中写入keep-aline?,使用http2.0的多路复用
+3. 请求：减少cookie长度，使用Cache-Control,同时发请求（一个域名可以发4个请求）（多cdn域名（文件多时使用，虽然会增加DNS查询数量））
+4. 响应：使用ETag. Gzip压缩
+
