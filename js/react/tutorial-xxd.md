@@ -144,7 +144,40 @@ JSX:
             })
         }
         服务器jsonp===>'callback({"a":"1"})'
-    
 
+react的进阶
+
+
+render可以return一个数组[<div></div>,<div></div>]
+可以捕获子组件的错误：componentDidCatch(){}
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  componentDidCatch(error, info) {
+    // Display fallback UI
+    this.setState({ hasError: true });
+    // You can also log the error to an error reporting service
+    logErrorToMyService(error, info);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      // You can render any custom fallback UI
+      return <h1>Something went wrong.</h1>;
+    }
+    return this.props.children;
+  }
+}
+    
+ReactDOM.createPortal(child, container)但是此时其任然在dom树中，其父组件仍然能够捕获它触发的事件！
+
+React.createElement('div',null,child)
+
+Dom树的搜索和遍历
+搜索：深度优先策略（DFS），广度优先策略
+遍历： 中序遍历，前序遍历，后序遍历
 
  

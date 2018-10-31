@@ -245,3 +245,4 @@ this.state.person.map((item,i)=>{
 22. promise的3种状态(pending,fulfilled,rejected)
 23. await/async,处理异常记得用`try{}catch(){}`;
     多个await函数是串行执行，如果想并行用Promise.all([await function1,await function2])
+24. 关于命令`npm run eject`执行完这个命令——npm run eject后会将封装在 CRA 中的配置全部反编译到当前项目，这样用户就可以完全取得 webpack 文件的控制权，想怎么修改就怎么修改了。

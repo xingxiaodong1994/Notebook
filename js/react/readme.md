@@ -97,3 +97,4 @@ AMD:Async Module Definition//异步 模块 定义
 		console.log(xxx)
 	})
 CommonJS
+

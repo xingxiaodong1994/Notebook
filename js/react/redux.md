@@ -114,3 +114,13 @@ reducer(state=initState,action){
 4. 如何把redux应用到react中：
    `npm install --save redux react-redux`
     新建文件夹`components,data(actions,reducers),creat.js`
+
+ff:
+    redux 使用：
+    1. 引入redux 
+    2. 防呆子
+    3. 事件都有事件名（action.type）
+    4. 数据只读
+    5. context
+    6. Suspence
+    7. hook
