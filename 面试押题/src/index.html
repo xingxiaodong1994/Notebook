@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,
+     initial-scale=1.0 ,maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>面试复习</title>
+</head>
+<body>
+   <p>
+       1.js有7种数据类型number，string，Boolean，null,undefined,object ,symble.
+       2.promise是什么：
+        promise是一种异步处理方式，它避免了回调地狱，
+        而是通过.then(resolve,reject)的链式操作，处理异步后的操作。
+        我可以手写生成一个promise对象。
+        <pre>
+            function xxx(){
+                return new Promise((resolve,reject)=>{
+                    //..进行一些异步操作
+                    if(xxx){
+                        //如果成功，执行resolve
+                        resolve()
+                    }else{
+                        reject()
+                    }
+                })
+            }
+            xxx().then(成功函数,失败函数).then(成功函数,失败函数)
+        </pre>
+        3. 发送ajax请求：
+   </p> 
+   <script>
+       let xhr=new XMLHttpRequest()
+       xhr.open('post','/xxx')
+       xhr.onreadystatechange=()=>{
+           if( xhr.readyState===4 ){
+               if(xhr.status===200){
+                   console.log('请求成功')
+               }else{
+                   console.log('请求失败')
+               }
+           }
+       }
+       xhr.send('你好！')
+   </script>
+</body>
+</html>
