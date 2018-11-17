@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{margin: 0;padding: 0;}
+        .animation{
+            font-size: 12px;
+            width: 100px;
+            height: 100px;
+            color:black;
+            background: pink;
+            
+            animation: right 1s forwards;
+            animation-play-state: running;
+
+        }
+        @keyframes right {
+            from{margin-left: 0px;}
+            to{margin-left: 100%;}
+        }
+    </style>
+</head>
+<body>
+    <div class="animation">
+        xx
+    </div>
+    <script>
+      let a= new Promise(resolve => {
+    setTimeout(() => {
+      resolve("ww");
+    }, 2000);
+  });
+  a.then((xx)=>{
+      let a=xx+"sss"
+      console.log(222)
+      return a},()=>{})
+
+
+    async function asyncCall() {
+      console.log('calling');
+      var result = await a;
+      console.log(result);
+      
+    }
+
+    asyncCall();//calling 222 ww
+    </script>
+</body>
+</html>
